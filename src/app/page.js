@@ -1,65 +1,356 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+
+export default function PortfolioWebsite() {
+  const [activeTab, setActiveTab] = useState("UI/UX");
+
+  const categories = ["UI/UX", "3D Modelling", "Game Dev"];
+
+  const projects = [
+    {
+      title: "Nova Finance Experience",
+      category: "UI/UX",
+      image:
+        "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1400&auto=format&fit=crop",
+    },
+    {
+      title: "Aether Dashboard System",
+      category: "UI/UX",
+      image:
+        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1400&auto=format&fit=crop",
+    },
+    {
+      title: "Shadow Monarch Armour",
+      category: "3D Modelling",
+      image:
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1400&auto=format&fit=crop",
+    },
+    {
+      title: "Cyber Katana",
+      category: "3D Modelling",
+      image:
+        "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1400&auto=format&fit=crop",
+    },
+    {
+      title: "Guardian Legends",
+      category: "Game Dev",
+      image:
+        "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1400&auto=format&fit=crop",
+    },
+    {
+      title: "Survival Realm",
+      category: "Game Dev",
+      image:
+        "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=1400&auto=format&fit=crop",
+    },
+  ];
+
+  const filteredProjects = useMemo(() => {
+    return projects.filter((item) => item.category === activeTab);
+  }, [activeTab]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="bg-[#050505] text-white min-h-screen overflow-hidden selection:bg-white selection:text-black">
+      {/* animated background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{ x: [0, 60, 0], y: [0, -30, 0] }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[-15%] left-[-10%] w-[700px] h-[700px] bg-violet-500/10 blur-[150px] rounded-full"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
+
+        <motion.div
+          animate={{ x: [0, -60, 0], y: [0, 40, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-[-20%] right-[-10%] w-[700px] h-[700px] bg-cyan-500/10 blur-[150px] rounded-full"
+        />
+
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:90px_90px] opacity-[0.15]" />
+      </div>
+
+      {/* navbar */}
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl border-b border-white/10 bg-black/20">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 py-5 flex items-center justify-between">
+          <h1 className="text-sm sm:text-base uppercase tracking-[0.4em] font-semibold">
+            IMRA WANA
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+
+          <nav className="hidden md:flex items-center gap-10 text-sm text-white/60">
+            <a href="#works" className="hover:text-white transition-all">
+              Works
+            </a>
+            <a href="#services" className="hover:text-white transition-all">
+              Services
+            </a>
+            <a href="#about" className="hover:text-white transition-all">
+              About
+            </a>
+            <a href="#contact" className="hover:text-white transition-all">
+              Contact
+            </a>
+          </nav>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </header>
+
+      {/* hero */}
+      <section className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 pt-36 md:pt-44 pb-24 md:pb-32">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-14 items-center">
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-3 px-5 py-3 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-xl text-white/70 text-sm"
+            >
+              ✦ 3D Animator • Creative Designer • UI/UX
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+              className="mt-8 text-5xl sm:text-6xl lg:text-8xl font-semibold tracking-[-0.05em] leading-[0.92]"
+            >
+              Building
+              <span className="text-white/30"> immersive </span>
+              visual experiences
+              <span className="text-violet-300"> for modern brands.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="mt-8 max-w-2xl text-base sm:text-lg text-white/55 leading-relaxed"
+            >
+              I create premium 3D visuals, cinematic animation, futuristic
+              interfaces, and interactive digital experiences with a modern art
+              direction approach.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="mt-10 flex flex-wrap gap-4"
+            >
+              <button className="px-8 py-4 rounded-2xl bg-white text-black font-medium hover:scale-[1.03] transition-all duration-300">
+                Explore Portfolio
+              </button>
+
+              <button className="px-8 py-4 rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 text-white/80">
+                Book Collaboration
+              </button>
+            </motion.div>
+          </div>
+
+          {/* visual showcase */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="relative"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <motion.div
+              animate={{ rotateY: [0, 5, 0], rotateX: [0, -4, 0] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              className="relative aspect-[4/5] rounded-[36px] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-3xl shadow-[0_0_120px_rgba(139,92,246,0.15)]"
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              <img
+                src="https://images.unsplash.com/photo-1633419461186-7d40a38105ec?q=80&w=1600&auto=format&fit=crop"
+                alt="hero"
+                className="absolute inset-0 w-full h-full object-cover scale-110 opacity-90"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+
+              <div className="absolute top-6 left-6 right-6 flex items-start justify-between">
+                <div className="bg-black/40 border border-white/10 backdrop-blur-xl rounded-2xl px-4 py-3">
+                  <p className="text-xs text-white/40 uppercase tracking-[0.2em]">
+                    Featured
+                  </p>
+                  <h3 className="mt-1 text-xl font-semibold">
+                    Neo Motion Reel
+                  </h3>
+                </div>
+
+                <div className="w-14 h-14 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl flex items-center justify-center text-xl">
+                  ✦
+                </div>
+              </div>
+
+              <div className="absolute bottom-6 left-6 right-6 grid grid-cols-2 gap-4">
+                <div className="rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl p-4">
+                  <p className="text-white/40 text-xs uppercase tracking-[0.2em]">
+                    Experience
+                  </p>
+                  <h4 className="text-3xl font-semibold mt-2">5+</h4>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl p-4">
+                  <p className="text-white/40 text-xs uppercase tracking-[0.2em]">
+                    Projects
+                  </p>
+                  <h4 className="text-3xl font-semibold mt-2">40+</h4>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* marquee */}
+      <section className="relative z-10 border-y border-white/10 overflow-hidden">
+        <motion.div
+          animate={{ x: [0, -1000] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="flex gap-20 whitespace-nowrap py-6 text-white/20 text-3xl md:text-5xl font-semibold uppercase"
+        >
+          <span>3D Animation</span>
+          <span>Creative Direction</span>
+          <span>UI/UX Experience</span>
+          <span>Game Development</span>
+          <span>Blender Artist</span>
+          <span>Motion Design</span>
+        </motion.div>
+      </section>
+
+      {/* portfolio */}
+      <section id="works" className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 py-24 md:py-32">
+        <div className="flex flex-wrap items-end justify-between gap-8 mb-16">
+          <div>
+            <p className="text-sm uppercase tracking-[0.25em] text-white/40 mb-4">
+              Selected Works
+            </p>
+            <h2 className="text-4xl md:text-6xl font-semibold tracking-[-0.04em] leading-tight">
+              Portfolio Collection
+            </h2>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveTab(category)}
+                className={`px-6 py-3 rounded-2xl transition-all duration-300 border ${
+                  activeTab === category
+                    ? "bg-white text-black border-white"
+                    : "border-white/10 bg-white/[0.03] text-white/60 hover:bg-white/[0.06]"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+          {filteredProjects.map((project, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -10 }}
+              className="group relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] backdrop-blur-xl"
+            >
+              <div className="aspect-[4/5] overflow-hidden relative">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+              </div>
+
+              <div className="absolute inset-x-0 bottom-0 p-7">
+                <div className="rounded-[28px] border border-white/10 bg-black/40 backdrop-blur-2xl p-6">
+                  <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-3">
+                    {project.category}
+                  </p>
+
+                  <div className="flex items-center justify-between gap-4">
+                    <h3 className="text-2xl font-semibold leading-tight">
+                      {project.title}
+                    </h3>
+
+                    <div className="w-12 h-12 rounded-2xl bg-white text-black flex items-center justify-center font-semibold group-hover:rotate-45 transition-transform duration-500">
+                      ↗
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* services */}
+      <section id="services" className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 pb-24 md:pb-32">
+        <div className="grid lg:grid-cols-3 gap-8">
+          {[
+            "Cinematic 3D Animation",
+            "Modern UI/UX Systems",
+            "Interactive Game Development",
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ y: -10 }}
+              className="relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.02] p-8 md:p-10 backdrop-blur-3xl"
+            >
+              <div className="text-6xl font-semibold text-white/10 mb-10">
+                0{index + 1}
+              </div>
+
+              <h3 className="text-3xl font-semibold leading-tight mb-5">
+                {item}
+              </h3>
+
+              <p className="text-white/55 leading-relaxed">
+                Premium digital craftsmanship combining aesthetics,
+                interaction, cinematic motion, and modern visual systems.
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section id="contact" className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 pb-24 md:pb-32">
+        <div className="relative overflow-hidden rounded-[40px] border border-white/10 bg-white/[0.03] backdrop-blur-3xl p-10 md:p-20 text-center">
+          <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-500/10" />
+
+          <div className="relative z-10">
+            <p className="text-sm uppercase tracking-[0.25em] text-white/40 mb-6">
+              Available Worldwide
+            </p>
+
+            <h2 className="text-4xl md:text-7xl font-semibold tracking-[-0.05em] leading-[1] max-w-5xl mx-auto">
+              Let’s craft something visually unforgettable.
+            </h2>
+
+            <p className="mt-8 text-white/55 max-w-2xl mx-auto text-lg leading-relaxed">
+              Open for freelance projects, creative direction, UI/UX systems,
+              3D animation, branding visuals, and immersive game experiences.
+            </p>
+
+            <div className="mt-12 flex justify-center gap-4 flex-wrap">
+              <button className="px-8 py-4 rounded-2xl bg-white text-black font-medium hover:scale-[1.03] transition-all duration-300">
+                Start Project
+              </button>
+
+              <button className="px-8 py-4 rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 text-white/80">
+                Download CV
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
