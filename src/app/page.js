@@ -292,6 +292,20 @@ export default function PortfolioWebsite() {
 
       {/* services */}
       <section id="services" className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 pb-24 md:pb-32">
+        <div className="mb-16 max-w-3xl">
+          <p className="text-sm uppercase tracking-[0.25em] text-white/40 mb-4">
+            Expertise
+          </p>
+
+          <h2 className="text-4xl md:text-6xl font-semibold tracking-[-0.04em] leading-tight">
+            Creative services crafted for modern digital experiences.
+          </h2>
+
+          <p className="mt-6 text-white/55 text-base md:text-lg leading-relaxed max-w-2xl">
+            Combining cinematic visuals, immersive interaction, and modern design systems to create impactful digital products and visual storytelling.
+          </p>
+        </div>
+
         <div className="grid lg:grid-cols-3 gap-8">
           {[
             "Cinematic 3D Animation",
@@ -341,12 +355,21 @@ export default function PortfolioWebsite() {
 
             <div className="mt-12 flex justify-center gap-4 flex-wrap">
               <button className="px-8 py-4 rounded-2xl bg-white text-black font-medium hover:scale-[1.03] transition-all duration-300">
-                Start Project
+                <a
+                  href="https://wa.me/6281234030216?text=Hello%20Imra,%20I%20am%20interested%20in%20working%20with%20you."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-4 rounded-2xl bg-white text-black font-medium hover:scale-[1.03] transition-all duration-300 inline-flex"
+                >
+                  Let's Talk
+                </a>
               </button>
 
+              {/*
               <button className="px-8 py-4 rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 text-white/80">
                 Download CV
               </button>
+              */}
             </div>
           </div>
         </div>
