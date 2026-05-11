@@ -1,51 +1,15 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+
+import { projects } from "@/data/projectList";
 
 export default function PortfolioWebsite() {
   const [activeTab, setActiveTab] = useState("UI/UX");
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const categories = ["UI/UX", "3D Modelling", "Game Dev"];
-
-  const projects = [
-    {
-      title: "Nova Finance Experience",
-      category: "UI/UX",
-      image:
-        "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1400&auto=format&fit=crop",
-    },
-    {
-      title: "Aether Dashboard System",
-      category: "UI/UX",
-      image:
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1400&auto=format&fit=crop",
-    },
-    {
-      title: "Shadow Monarch Armour",
-      category: "3D Modelling",
-      image:
-        "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1400&auto=format&fit=crop",
-    },
-    {
-      title: "Cyber Katana",
-      category: "3D Modelling",
-      image:
-        "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1400&auto=format&fit=crop",
-    },
-    {
-      title: "Guardian Legends",
-      category: "Game Dev",
-      image:
-        "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1400&auto=format&fit=crop",
-    },
-    {
-      title: "Survival Realm",
-      category: "Game Dev",
-      image:
-        "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=1400&auto=format&fit=crop",
-    },
-  ];
 
   const filteredProjects = useMemo(() => {
     return projects.filter((item) => item.category === activeTab);
@@ -81,12 +45,11 @@ export default function PortfolioWebsite() {
             <a href="#works" className="hover:text-white transition-all">
               Works
             </a>
+
             <a href="#services" className="hover:text-white transition-all">
               Services
             </a>
-            <a href="#about" className="hover:text-white transition-all">
-              About
-            </a>
+
             <a href="#contact" className="hover:text-white transition-all">
               Contact
             </a>
@@ -136,13 +99,21 @@ export default function PortfolioWebsite() {
               transition={{ delay: 0.5, duration: 0.8 }}
               className="mt-10 flex flex-wrap gap-4"
             >
-              <button className="px-8 py-4 rounded-2xl bg-white text-black font-medium hover:scale-[1.03] transition-all duration-300">
+              <a
+                href="#works"
+                className="px-8 py-4 rounded-2xl bg-white text-black font-medium hover:scale-[1.03] transition-all duration-300 inline-flex"
+              >
                 Explore Portfolio
-              </button>
+              </a>
 
-              <button className="px-8 py-4 rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 text-white/80">
+              <a
+                href="https://wa.me/6281234567890?text=Hello%20Imra,%20I%20am%20interested%20in%20working%20with%20you."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 text-white/80 inline-flex"
+              >
                 Book Collaboration
-              </button>
+              </a>
             </motion.div>
           </div>
 
@@ -157,10 +128,9 @@ export default function PortfolioWebsite() {
               animate={{ rotateY: [0, 5, 0], rotateX: [0, -4, 0] }}
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
               className="relative aspect-[4/5] rounded-[36px] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-3xl shadow-[0_0_120px_rgba(139,92,246,0.15)]"
-              style={{ transformStyle: "preserve-3d" }}
             >
               <img
-                src="https://images.unsplash.com/photo-1633419461186-7d40a38105ec?q=80&w=1600&auto=format&fit=crop"
+                src="/images/hero.jpg"
                 alt="hero"
                 className="absolute inset-0 w-full h-full object-cover scale-110 opacity-90"
               />
@@ -172,6 +142,7 @@ export default function PortfolioWebsite() {
                   <p className="text-xs text-white/40 uppercase tracking-[0.2em]">
                     Featured
                   </p>
+
                   <h3 className="mt-1 text-xl font-semibold">
                     Neo Motion Reel
                   </h3>
@@ -187,6 +158,7 @@ export default function PortfolioWebsite() {
                   <p className="text-white/40 text-xs uppercase tracking-[0.2em]">
                     Experience
                   </p>
+
                   <h4 className="text-3xl font-semibold mt-2">5+</h4>
                 </div>
 
@@ -194,6 +166,7 @@ export default function PortfolioWebsite() {
                   <p className="text-white/40 text-xs uppercase tracking-[0.2em]">
                     Projects
                   </p>
+
                   <h4 className="text-3xl font-semibold mt-2">40+</h4>
                 </div>
               </div>
@@ -219,12 +192,16 @@ export default function PortfolioWebsite() {
       </section>
 
       {/* portfolio */}
-      <section id="works" className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 py-24 md:py-32">
+      <section
+        id="works"
+        className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 py-24 md:py-32"
+      >
         <div className="flex flex-wrap items-end justify-between gap-8 mb-16">
           <div>
             <p className="text-sm uppercase tracking-[0.25em] text-white/40 mb-4">
               Selected Works
             </p>
+
             <h2 className="text-4xl md:text-6xl font-semibold tracking-[-0.04em] leading-tight">
               Portfolio Collection
             </h2>
@@ -251,16 +228,17 @@ export default function PortfolioWebsite() {
           {filteredProjects.map((project, index) => (
             <motion.div
               key={index}
+              onClick={() => setSelectedProject(project)}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -10 }}
-              className="group relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] backdrop-blur-xl"
+              className="group relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] backdrop-blur-xl cursor-pointer"
             >
               <div className="aspect-[4/5] overflow-hidden relative">
                 <img
-                  src={project.image}
+                  src={project.thumbnail}
                   alt={project.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
@@ -291,7 +269,10 @@ export default function PortfolioWebsite() {
       </section>
 
       {/* services */}
-      <section id="services" className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 pb-24 md:pb-32">
+      <section
+        id="services"
+        className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 pb-24 md:pb-32"
+      >
         <div className="mb-16 max-w-3xl">
           <p className="text-sm uppercase tracking-[0.25em] text-white/40 mb-4">
             Expertise
@@ -302,7 +283,9 @@ export default function PortfolioWebsite() {
           </h2>
 
           <p className="mt-6 text-white/55 text-base md:text-lg leading-relaxed max-w-2xl">
-            Combining cinematic visuals, immersive interaction, and modern design systems to create impactful digital products and visual storytelling.
+            Combining cinematic visuals, immersive interaction, and modern
+            design systems to create impactful digital products and visual
+            storytelling.
           </p>
         </div>
 
@@ -335,7 +318,10 @@ export default function PortfolioWebsite() {
       </section>
 
       {/* CTA */}
-      <section id="contact" className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 pb-24 md:pb-32">
+      <section
+        id="contact"
+        className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 pb-24 md:pb-32"
+      >
         <div className="relative overflow-hidden rounded-[40px] border border-white/10 bg-white/[0.03] backdrop-blur-3xl p-10 md:p-20 text-center">
           <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-500/10" />
 
@@ -354,26 +340,124 @@ export default function PortfolioWebsite() {
             </p>
 
             <div className="mt-12 flex justify-center gap-4 flex-wrap">
-              <button className="px-8 py-4 rounded-2xl bg-white text-black font-medium hover:scale-[1.03] transition-all duration-300">
-                <a
-                  href="https://wa.me/6281234030216?text=Hello%20Imra,%20I%20am%20interested%20in%20working%20with%20you."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-8 py-4 rounded-2xl bg-white text-black font-medium hover:scale-[1.03] transition-all duration-300 inline-flex"
-                >
-                  Let's Talk
-                </a>
-              </button>
-
-              {/*
-              <button className="px-8 py-4 rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 text-white/80">
-                Download CV
-              </button>
-              */}
+              <a
+                href="https://wa.me/6281234567890?text=Hello%20Imra,%20I%20am%20interested%20in%20working%20with%20you."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 rounded-2xl bg-white text-black font-medium hover:scale-[1.03] transition-all duration-300 inline-flex"
+              >
+                Start Project
+              </a>
             </div>
           </div>
         </div>
       </section>
+
+      {/* premium modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-xl flex items-center justify-center p-5">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.35 }}
+              className="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-[36px] border border-white/10 bg-[#0B0B0B] shadow-[0_0_120px_rgba(139,92,246,0.15)]"
+            >
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-5 right-5 z-20 w-12 h-12 rounded-2xl bg-black/60 border border-white/10 text-white hover:bg-white hover:text-black transition-all"
+              >
+                ✕
+              </button>
+
+              {/* hero */}
+              <div className="relative aspect-[16/8] overflow-hidden">
+                <img
+                  src={selectedProject.thumbnail}
+                  alt={selectedProject.title}
+                  className="w-full h-full object-cover"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-black/30 to-transparent" />
+              </div>
+
+              <div className="p-8 md:p-12">
+                <span className="px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] text-sm text-white/60 uppercase tracking-[0.2em]">
+                  {selectedProject.category}
+                </span>
+
+                <h2 className="mt-6 text-4xl md:text-6xl font-semibold tracking-[-0.04em] leading-tight max-w-4xl">
+                  {selectedProject.title}
+                </h2>
+
+                <p className="mt-8 text-white/60 text-lg leading-relaxed max-w-3xl">
+                  {selectedProject.description}
+                </p>
+
+                {/* gallery */}
+                {selectedProject.gallery && (
+                  <div className="grid md:grid-cols-2 gap-6 mt-14">
+                    {selectedProject.gallery.map((image, index) => (
+                      <div
+                        key={index}
+                        className="overflow-hidden rounded-[28px] border border-white/10"
+                      >
+                        <img
+                          src={image}
+                          alt=""
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* video */}
+                {selectedProject.video && (
+                  <div className="mt-14">
+                    <iframe
+                      src={selectedProject.video}
+                      className="w-full aspect-video rounded-[28px]"
+                      allowFullScreen
+                    />
+                  </div>
+                )}
+
+                {/* content */}
+                <div className="grid md:grid-cols-2 gap-6 mt-14">
+                  <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+                    <p className="text-sm uppercase tracking-[0.2em] text-white/40 mb-4">
+                      Project Overview
+                    </p>
+
+                    <p className="text-white/60 leading-relaxed">
+                      {selectedProject.overview}
+                    </p>
+                  </div>
+
+                  <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+                    <p className="text-sm uppercase tracking-[0.2em] text-white/40 mb-4">
+                      Tools & Workflow
+                    </p>
+
+                    <div className="flex flex-wrap gap-3">
+                      {selectedProject.tools?.map((tool, index) => (
+                        <span
+                          key={index}
+                          className="px-4 py-2 rounded-full border border-white/10 bg-white/[0.04] text-sm text-white/70"
+                        >
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
