@@ -56,14 +56,19 @@ export default function PortfolioDetailPage(props) {
       {/* sidebar */}
         <motion.aside
         initial={false}
-        animate={{
-            width: sidebarOpen ? 320 : 96,
-        }}
+
+        animate={
+            typeof window !== "undefined" && window.innerWidth < 768
+            ? { x: sidebarOpen ? 0 : -320 }
+            : { width: sidebarOpen ? 320 : 96 }
+        }
+
         transition={{
             duration: 0.35,
             ease: "easeInOut",
         }}
-        className="relative z-50 h-screen border-r border-white/10 bg-black/40 backdrop-blur-2xl overflow-hidden shrink-0"
+
+        className="md:relative fixed left-0 top-0 z-50 w-[320px] h-screen border-r border-white/10 bg-black/40 backdrop-blur-2xl overflow-hidden shrink-0"
         >
 
         {/* top */}
@@ -93,6 +98,24 @@ export default function PortfolioDetailPage(props) {
             </button>
             </div>
         </div>
+
+        {!sidebarOpen && (
+
+        <button
+        onClick={() => setSidebarOpen(true)}
+        className="fixed left-5 top-5 z-[120] w-14 h-14 rounded-2xl border border-white/10 bg-black/50 backdrop-blur-2xl flex items-center justify-center text-white/70 text-xl hover:bg-white/[0.08] hover:text-white transition-all duration-300 md:hidden"
+        >
+        ☰
+        </button>
+
+        )}
+
+        {sidebarOpen && (
+        <div
+            onClick={() => setSidebarOpen(false)}
+            className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden"
+        />
+        )}
 
         {/* content */}
         <div className="flex-1 overflow-y-auto px-4 py-5">
