@@ -1,7 +1,7 @@
 const katana = {
-  id: "cyber-katana",
+  id: "Shadow-Monarch",
 
-  title: "Cyber Katana",
+  title: "Shadow Monarch",
 
   category: "3D Modelling",
 

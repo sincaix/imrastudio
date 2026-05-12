@@ -1,9 +1,9 @@
 const katana = {
-  id: "cyber-katana",
+  id: "Nova-Finance",
 
-  title: "Cyber Katana",
+  title: "Nova Finance",
 
-  category: "3D Modelling",
+  category: "Game Dev",
 
   thumbnail: "/projects/katana/thumb.jpg",
 

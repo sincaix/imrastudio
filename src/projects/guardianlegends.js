@@ -1,7 +1,7 @@
 const katana = {
-  id: "cyber-katana",
+  id: "Guardian-Legends",
 
-  title: "Cyber Katana",
+  title: "Guardian Legends",
 
   category: "UI/UX",
 
