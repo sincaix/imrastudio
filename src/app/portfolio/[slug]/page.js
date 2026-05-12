@@ -230,7 +230,7 @@ export default function PortfolioDetailPage(props) {
                 ⌂
                 </span>
 
-                <span className="hidden md:block">
+                <span>
                 Home
                 </span>
             </Link>

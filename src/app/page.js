@@ -1,8 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-
 import { projects } from "@/data/projectList";
 
 export default function PortfolioWebsite() {
@@ -10,28 +10,35 @@ export default function PortfolioWebsite() {
     projects[0]?.category
   );
 
-  const [selectedProject, setSelectedProject] = useState(null);
-    useEffect(() => {
-      if (selectedProject) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "auto";
-      }
-
-      return () => {
-        document.body.style.overflow = "auto";
-      };
-    }, [selectedProject]);
-
-  const [currentImage, setCurrentImage] = useState(0);
-
   const categories = [
     ...new Set(projects.map((project) => project.category)),
   ];
 
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const filteredProjects = useMemo(() => {
-    return projects.filter((item) => item.category === activeTab);
+    return projects.filter(
+      (item) => item.category === activeTab
+    );
   }, [activeTab]);
+
+  useEffect(() => {
+  const interval = setInterval(() => {
+    setCurrentSlide((prev) =>
+      (prev + 1) % filteredProjects.length
+    );
+  }, 12000);
+
+  return () => clearInterval(interval);
+  }, [filteredProjects.length]);
+
+  const visibleProjects =
+    filteredProjects.length > 3
+      ? filteredProjects.slice(
+          currentSlide,
+          currentSlide + 3
+        )
+      : filteredProjects;
 
   return (
     <main className="bg-[#050505] text-white min-h-screen overflow-hidden selection:bg-white selection:text-black">
@@ -242,47 +249,153 @@ export default function PortfolioWebsite() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
-            <motion.div
-              key={index}
-              onClick={() => setSelectedProject(project)}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="group relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] backdrop-blur-xl cursor-pointer"
-            >
-              <div className="aspect-[4/5] overflow-hidden relative">
-                <img
-                  src={project.thumbnail}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
+        <div className="relative">
+          <div className="relative w-full h-[760px] flex items-center justify-center overflow-hidden">
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-              </div>
+          {filteredProjects.map((project, index) => {
 
-              <div className="absolute inset-x-0 bottom-0 p-7">
-                <div className="rounded-[28px] border border-white/10 bg-black/40 backdrop-blur-2xl p-6">
-                  <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-3">
-                    {project.category}
-                  </p>
+            const position =
+              index === currentSlide
+                ? "center"
+                : index ===
+                  (currentSlide - 1 + filteredProjects.length) %
+                    filteredProjects.length
+                ? "left"
+                : index ===
+                  (currentSlide + 1) %
+                    filteredProjects.length
+                ? "right"
+                : "hidden";
 
-                  <div className="flex items-center justify-between gap-4">
-                    <h3 className="text-2xl font-semibold leading-tight">
-                      {project.title}
-                    </h3>
+            return (
+              <Link
+                href={`/portfolio/${project.id}`}
+                key={index}
+                className="absolute transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              >
+                <motion.div
+                  animate={{
+                    scale:
+                      position === "center"
+                        ? 1
+                        : 0.82,
 
-                    <div className="w-12 h-12 rounded-2xl bg-white text-black flex items-center justify-center font-semibold group-hover:rotate-45 transition-transform duration-500">
-                      ↗
+                    x:
+                      position === "left"
+                        ? -320
+                        : position === "right"
+                        ? 320
+                        : 0,
+
+                    opacity:
+                      position === "hidden"
+                        ? 0
+                        : position === "center"
+                        ? 1
+                        : 0.45,
+
+                    zIndex:
+                      position === "center"
+                        ? 30
+                        : 10,
+                  }}
+                  transition={{
+                    duration: 0.8,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="group relative w-[320px] md:w-[420px] overflow-hidden rounded-[36px] border border-white/10 bg-white/[0.03] backdrop-blur-xl shadow-[0_0_120px_rgba(255,255,255,0.04)]"
+                >
+
+                  <div className="aspect-[4/5] overflow-hidden relative">
+                    <img
+                      src={project.thumbnail}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                  </div>
+
+                  <div className="absolute inset-x-0 bottom-0 p-7">
+                    <div className="rounded-[28px] border border-white/10 bg-black/40 backdrop-blur-2xl p-6">
+
+                      <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-3">
+                        {project.category}
+                      </p>
+
+                      <div className="flex items-center justify-between gap-4">
+
+                        <h3 className="text-2xl font-semibold leading-tight">
+                          {project.title}
+                        </h3>
+
+                        <div className="w-12 h-12 rounded-2xl bg-white text-black flex items-center justify-center font-semibold group-hover:rotate-45 transition-transform duration-500">
+                          ↗
+                        </div>
+
+                      </div>
+
                     </div>
                   </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+
+                </motion.div>
+              </Link>
+            );
+          })}
+          </div>
+
+            {filteredProjects.length > 3 && (
+  <>
+            <button
+              onClick={() =>
+                setCurrentSlide(
+                  (prev) =>
+                    (prev - 1 + filteredProjects.length) %
+                    filteredProjects.length
+                )
+              }
+              className="absolute left-[0%] top-1/2 -translate-y-1/2 z-40 w-16 h-16 rounded-full border border-white/10 bg-black/30 backdrop-blur-3xl text-white/70 text-xl hover:bg-white/[0.08] hover:text-white hover:scale-110 transition-all duration-500"
+            >
+              ←
+            </button>
+
+            <button
+              onClick={() =>
+                setCurrentSlide(
+                  (prev) =>
+                    (prev + 1) % filteredProjects.length
+                )
+              }
+              className="absolute right-[0%] top-1/2 -translate-y-1/2 z-40 w-16 h-16 rounded-full border border-white/10 bg-black/30 backdrop-blur-3xl text-white/70 text-xl hover:bg-white/[0.08] hover:text-white hover:scale-110 transition-all duration-500"
+            >
+              →
+            </button>
+          </>
+        )}
+
+        {filteredProjects.length > 3 && (
+          <div className="flex items-center justify-center gap-3 mt-10">
+
+            {[0, 1, 2].map((dot) => {
+
+              const active =
+                currentSlide % 3 === dot;
+
+              return (
+                <button
+                  key={dot}
+                  onClick={() => setCurrentSlide(dot)}
+                  className={`rounded-full transition-all duration-700 ${
+                    active
+                      ? "w-10 h-2 bg-white shadow-[0_0_20px_rgba(255,255,255,0.5)]"
+                      : "w-2 h-2 bg-white/20 hover:bg-white/40"
+                  }`}
+                />
+              );
+            })}
+
+          </div>
+        )}
         </div>
       </section>
 
@@ -370,259 +483,6 @@ export default function PortfolioWebsite() {
           </div>
         </div>
       </section>
-
-      {/* premium modal */}
-        <AnimatePresence>
-          {selectedProject && (
-            <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-xl flex items-center justify-center p-5">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.92, y: 30 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.92 }}
-                transition={{ duration: 0.35 }}
-                className="
-                  relative
-                  w-full
-                  max-w-6xl
-                  max-h-[90vh]
-                  overflow-y-auto
-                  rounded-[36px]
-                  border
-                  border-white/10
-                  bg-[#0B0B0B]
-                  shadow-[0_0_120px_rgba(139,92,246,0.15)]
-                "
-              >
-                {/* sticky close */}
-                <div className="sticky top-0 z-50 flex justify-end p-5">
-                  <button
-                    onClick={() => setSelectedProject(null)}
-                    className="
-                      w-14
-                      h-14
-                      rounded-2xl
-                      border
-                      border-white/10
-                      bg-black/60
-                      backdrop-blur-2xl
-                      text-white
-                      text-xl
-                      hover:bg-white
-                      hover:text-black
-                      transition-all
-                      duration-300
-                    "
-                  >
-                    ✕
-                  </button>
-                </div>
-
-                {/* hero slider */}
-                <div className="relative aspect-[16/8] overflow-hidden -mt-24">
-                  <img
-                    src={
-                      selectedProject.gallery?.[currentImage] ||
-                      selectedProject.thumbnail
-                    }
-                    alt={selectedProject.title}
-                    className="w-full h-full object-cover transition-all duration-700"
-                  />
-
-                  {/* gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-black/30 to-transparent" />
-
-                  {/* slider controls */}
-                  {selectedProject.gallery?.length > 1 && (
-                    <div className="absolute bottom-6 right-6 flex gap-3 z-20">
-                      <button
-                        onClick={() =>
-                          setCurrentImage((prev) =>
-                            prev === 0
-                              ? selectedProject.gallery.length - 1
-                              : prev - 1
-                          )
-                        }
-                        className="
-                          w-12
-                          h-12
-                          rounded-2xl
-                          border
-                          border-white/10
-                          bg-black/50
-                          backdrop-blur-xl
-                          text-white
-                          hover:bg-white
-                          hover:text-black
-                          transition-all
-                        "
-                      >
-                        ←
-                      </button>
-
-                      <button
-                        onClick={() =>
-                          setCurrentImage((prev) =>
-                            prev === selectedProject.gallery.length - 1
-                              ? 0
-                              : prev + 1
-                          )
-                        }
-                        className="
-                          w-12
-                          h-12
-                          rounded-2xl
-                          border
-                          border-white/10
-                          bg-black/50
-                          backdrop-blur-xl
-                          text-white
-                          hover:bg-white
-                          hover:text-black
-                          transition-all
-                        "
-                      >
-                        →
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                {/* content */}
-                <div className="p-8 md:p-12">
-                  {/* category */}
-                  <span
-                    className="
-                      px-4
-                      py-2
-                      rounded-full
-                      border
-                      border-white/10
-                      bg-white/[0.03]
-                      text-sm
-                      text-white/60
-                      uppercase
-                      tracking-[0.2em]
-                    "
-                  >
-                    {selectedProject.category}
-                  </span>
-
-                  {/* title */}
-                  <h2
-                    className="
-                      mt-6
-                      text-4xl
-                      md:text-6xl
-                      font-semibold
-                      tracking-[-0.04em]
-                      leading-tight
-                      max-w-4xl
-                    "
-                  >
-                    {selectedProject.title}
-                  </h2>
-
-                  {/* description */}
-                  <p
-                    className="
-                      mt-8
-                      text-white/60
-                      text-lg
-                      leading-relaxed
-                      max-w-2xl
-                    "
-                  >
-                    {selectedProject.description}
-                  </p>
-
-                  {/* tools */}
-                  <div className="flex flex-wrap gap-4 mt-10">
-
-                    {selectedProject.tools?.map((tool, index) => (
-
-                      <div
-                        key={index}
-                        className="
-                          h-12
-                          px-4
-                          rounded-full
-                          border
-                          border-white/10
-                          bg-white/[0.03]
-                          flex
-                          items-center
-                          gap-3
-                          backdrop-blur-xl
-                        "
-                      >
-
-                        <img
-                          src={tool.icon}
-                          alt={tool.name}
-                          className="
-                            w-4
-                            h-4
-                            object-contain
-                          "
-                        />
-
-                        <span
-                          className="
-                            text-sm
-                            text-white/70
-                          "
-                        >
-                          {tool.name}
-                        </span>
-
-                      </div>
-
-                    ))}
-
-                  </div>
-
-                  {/* CTA */}
-                  <div className="mt-14 border-t border-white/10 pt-10">
-                    <p className="text-white/40 text-sm uppercase tracking-[0.2em] mb-5">
-                      Explore Complete Project Experience
-                    </p>
-
-                    <a
-                      href={`/portfolio/${selectedProject.id}`}
-                      className="
-                        group
-                        relative
-                        inline-flex
-                        items-center
-                        gap-4
-                        px-8
-                        py-5
-                        rounded-2xl
-                        bg-white
-                        text-black
-                        font-medium
-                        overflow-hidden
-                        hover:scale-[1.02]
-                        transition-all
-                        duration-300
-                      "
-                    >
-                      <span className="relative z-10">
-                        View Full Case Study
-                      </span>
-
-                      <span className="relative z-10 text-xl group-hover:translate-x-1 transition-transform">
-                        ↗
-                      </span>
-
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-violet-300 to-cyan-300 transition-opacity duration-300" />
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>
     </main>
   );
 }
