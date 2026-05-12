@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useMemo, useState } from "react";
+import { use, useMemo, useState, useEffect } from "react";
 import { Search, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -9,6 +9,20 @@ import { projects } from "@/data/projectList";
 export default function PortfolioDetailPage(props) {
   const params = use(props.params);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+
+    const checkMobile = () => {
+    setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+
+    }, []);
   const [currentImage, setCurrentImage] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
   const [search, setSearch] = useState("");
@@ -57,18 +71,16 @@ export default function PortfolioDetailPage(props) {
         <motion.aside
         initial={false}
 
-        animate={
-            typeof window !== "undefined" && window.innerWidth < 768
-            ? { x: sidebarOpen ? 0 : -320 }
-            : { width: sidebarOpen ? 320 : 96 }
-        }
+        animate={{
+            width: sidebarOpen ? 320 : 96
+        }}
 
         transition={{
             duration: 0.35,
             ease: "easeInOut",
         }}
 
-        className="md:relative fixed left-0 top-0 z-50 w-[320px] h-screen border-r border-white/10 bg-black/40 backdrop-blur-2xl overflow-hidden shrink-0"
+        className="hidden md:block relative z-50 h-screen w-[320px] border-r border-white/10 bg-black/40 backdrop-blur-2xl overflow-y-auto overflow-x-hidden shrink-0"
         >
 
         {/* top */}
@@ -90,7 +102,7 @@ export default function PortfolioDetailPage(props) {
 
             <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="w-10 h-10 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-xl flex items-center justify-center text-white/60 hover:text-white hover:bg-white/[0.08] hover:border-white/20 transition-all duration-300"
+                className="hidden md:flex w-10 h-10 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-xl items-center justify-center text-white/60 hover:text-white hover:bg-white/[0.08] transition-all duration-300"
                 >
                 <span className="text-lg leading-none">
                     {sidebarOpen ? "<" : ">"}
@@ -98,24 +110,6 @@ export default function PortfolioDetailPage(props) {
             </button>
             </div>
         </div>
-
-        {!sidebarOpen && (
-
-        <button
-        onClick={() => setSidebarOpen(true)}
-        className="fixed left-5 top-5 z-[120] w-14 h-14 rounded-2xl border border-white/10 bg-black/50 backdrop-blur-2xl flex items-center justify-center text-white/70 text-xl hover:bg-white/[0.08] hover:text-white transition-all duration-300 md:hidden"
-        >
-        ☰
-        </button>
-
-        )}
-
-        {sidebarOpen && (
-        <div
-            onClick={() => setSidebarOpen(false)}
-            className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden"
-        />
-        )}
 
         {/* content */}
         <div className="flex-1 overflow-y-auto px-4 py-5">
@@ -236,7 +230,7 @@ export default function PortfolioDetailPage(props) {
                 ⌂
                 </span>
 
-                <span className="text-sm">
+                <span className="hidden md:block">
                 Home
                 </span>
             </Link>
@@ -244,7 +238,7 @@ export default function PortfolioDetailPage(props) {
             {/* close */}
             <Link
                 href="/portfolio"
-                className="w-12 h-12 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-2xl flex items-center justify-center text-white/60 hover:text-white hover:bg-white/[0.08] transition-all duration-300"
+                className="flex w-12 h-12 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-2xl items-center justify-center text-white/60 hover:text-white hover:bg-white/[0.08] transition-all duration-300"
             >
                 ✕
             </Link>
