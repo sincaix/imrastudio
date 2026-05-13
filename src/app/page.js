@@ -22,16 +22,6 @@ export default function PortfolioWebsite() {
     );
   }, [activeTab]);
 
-  useEffect(() => {
-  const interval = setInterval(() => {
-    setCurrentSlide((prev) =>
-      (prev + 1) % filteredProjects.length
-    );
-  }, 12000);
-
-  return () => clearInterval(interval);
-  }, [filteredProjects.length]);
-
   const visibleProjects =
     filteredProjects.length > 3
       ? filteredProjects.slice(
@@ -39,6 +29,21 @@ export default function PortfolioWebsite() {
           currentSlide + 3
         )
       : filteredProjects;
+  
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+  const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
 
   return (
     <main className="bg-[#050505] text-white min-h-screen overflow-hidden selection:bg-white selection:text-black">
@@ -60,7 +65,7 @@ export default function PortfolioWebsite() {
       </div>
 
       {/* navbar */}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl border-b border-white/10 bg-black/20">
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm md:backdrop-blur-2xl border-b border-white/10 bg-black/20">
         <div className="max-w-7xl mx-auto px-5 sm:px-6 py-5 flex items-center justify-between">
           <h1 className="text-sm sm:text-base uppercase tracking-[0.4em] font-semibold">
             IMRA WANA
@@ -90,7 +95,7 @@ export default function PortfolioWebsite() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-3 px-5 py-3 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-xl text-white/70 text-sm"
+              className="inline-flex items-center gap-3 px-5 py-3 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm md:backdrop-blur-xl text-white/70 text-sm"
             >
               ✦ 3D Animator • Creative Designer • UI/UX
             </motion.div>
@@ -152,7 +157,7 @@ export default function PortfolioWebsite() {
             <motion.div
               animate={{ rotateY: [0, 5, 0], rotateX: [0, -4, 0] }}
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              className="relative aspect-[4/5] rounded-[36px] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-3xl shadow-[0_0_120px_rgba(139,92,246,0.15)]"
+              className="relative aspect-[4/4.5] md:aspect-[4/5] rounded-[36px] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-sm md:backdrop-blur-3xl shadow-[0_0_30px_rgba(...)] md:shadow-[0_0_120px_rgba(...)]"
             >
               <img
                 src="/images/hero.jpg"
@@ -163,7 +168,7 @@ export default function PortfolioWebsite() {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
 
               <div className="absolute top-6 left-6 right-6 flex items-start justify-between">
-                <div className="bg-black/40 border border-white/10 backdrop-blur-xl rounded-2xl px-4 py-3">
+                <div className="bg-black/40 border border-white/10 backdrop-blur-sm md:backdrop-blur-xl rounded-2xl px-4 py-3">
                   <p className="text-xs text-white/40 uppercase tracking-[0.2em]">
                     Featured
                   </p>
@@ -173,13 +178,13 @@ export default function PortfolioWebsite() {
                   </h3>
                 </div>
 
-                <div className="w-14 h-14 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl flex items-center justify-center text-xl">
+                <div className="w-14 h-14 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm md:backdrop-blur-xl flex items-center justify-center text-xl">
                   ✦
                 </div>
               </div>
 
               <div className="absolute bottom-6 left-6 right-6 grid grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl p-4">
+                <div className="rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm md:backdrop-blur-xl p-4">
                   <p className="text-white/40 text-xs uppercase tracking-[0.2em]">
                     Experience
                   </p>
@@ -187,7 +192,7 @@ export default function PortfolioWebsite() {
                   <h4 className="text-3xl font-semibold mt-2">5+</h4>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl p-4">
+                <div className="rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm md:backdrop-blur-xl p-4">
                   <p className="text-white/40 text-xs uppercase tracking-[0.2em]">
                     Projects
                   </p>
@@ -219,7 +224,7 @@ export default function PortfolioWebsite() {
       {/* portfolio */}
       <section
         id="works"
-        className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 py-24 md:py-32"
+        className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 py-12 md:py-32"
       >
         <div className="flex flex-wrap items-end justify-between gap-8 mb-16">
           <div>
@@ -250,7 +255,7 @@ export default function PortfolioWebsite() {
         </div>
 
         <div className="relative">
-          <div className="relative w-full h-[760px] flex items-center justify-center overflow-hidden">
+          <div className="relative w-full h-[420px] md:h-[760px] flex items-center justify-center overflow-hidden">
 
           {filteredProjects.map((project, index) => {
 
@@ -274,6 +279,33 @@ export default function PortfolioWebsite() {
                 className="absolute transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
               >
                 <motion.div
+                  drag={isMobile ? "x" : false}
+
+                  dragConstraints={{
+                    left: 0,
+                    right: 0,
+                  }}
+
+                  onDragEnd={(e, info) => {
+
+                    if (info.offset.x < -80) {
+                      setCurrentSlide((prev) =>
+                        prev + 1 >= filteredProjects.length
+                          ? 0
+                          : prev + 1
+                      );
+                    }
+
+                    if (info.offset.x > 80) {
+                      setCurrentSlide((prev) =>
+                        prev === 0
+                          ? filteredProjects.length - 1
+                          : prev - 1
+                      );
+                    }
+
+                  }}
+
                   animate={{
                     scale:
                       position === "center"
@@ -303,7 +335,7 @@ export default function PortfolioWebsite() {
                     duration: 0.8,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="group relative w-[320px] md:w-[420px] overflow-hidden rounded-[36px] border border-white/10 bg-white/[0.03] backdrop-blur-xl shadow-[0_0_120px_rgba(255,255,255,0.04)]"
+                  className="group relative w-[320px] md:w-[420px] overflow-hidden rounded-[36px] border border-white/10 bg-white/[0.03] backdrop-blur-sm md:backdrop-blur-xl shadow-[0_0_30px_rgba(255,255,255,0.03)] md:shadow-[0_0_120px_rgba(255,255,255,0.04)] cursor-grab active:cursor-grabbing touch-pan-y"
                 >
 
                   <div className="aspect-[4/5] overflow-hidden relative">
@@ -317,7 +349,7 @@ export default function PortfolioWebsite() {
                   </div>
 
                   <div className="absolute inset-x-0 bottom-0 p-7">
-                    <div className="rounded-[28px] border border-white/10 bg-black/40 backdrop-blur-2xl p-6">
+                    <div className="rounded-[28px] border border-white/10 bg-black/40 backdrop-blur-sm md:backdrop-blur-2xl p-6">
 
                       <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-3">
                         {project.category}
@@ -354,8 +386,7 @@ export default function PortfolioWebsite() {
                     filteredProjects.length
                 )
               }
-              className="absolute left-[0%] top-1/2 -translate-y-1/2 z-40 w-16 h-16 rounded-full border border-white/10 bg-black/30 backdrop-blur-3xl text-white/70 text-xl hover:bg-white/[0.08] hover:text-white hover:scale-110 transition-all duration-500"
-            >
+              className="hidden md:flex absolute left-[0%] top-1/2 -translate-y-1/2 z-40 w-16 h-16 rounded-full border border-white/10 bg-black/30 backdrop-blur-sm md:backdrop-blur-3xl text-white/70 text-xl items-center justify-center leading-none hover:bg-white/[0.08] hover:text-white hover:scale-110 transition-all duration-500">
               ←
             </button>
 
@@ -366,15 +397,14 @@ export default function PortfolioWebsite() {
                     (prev + 1) % filteredProjects.length
                 )
               }
-              className="absolute right-[0%] top-1/2 -translate-y-1/2 z-40 w-16 h-16 rounded-full border border-white/10 bg-black/30 backdrop-blur-3xl text-white/70 text-xl hover:bg-white/[0.08] hover:text-white hover:scale-110 transition-all duration-500"
-            >
+              className="hidden md:flex absolute right-[0%] top-1/2 -translate-y-1/2 z-40 w-16 h-16 rounded-full border border-white/10 bg-black/30 backdrop-blur-sm md:backdrop-blur-3xl text-white/70 text-xl items-center justify-center leading-none hover:bg-white/[0.08] hover:text-white hover:scale-110 transition-all duration-500">
               →
             </button>
           </>
         )}
 
         {filteredProjects.length > 3 && (
-          <div className="flex items-center justify-center gap-3 mt-10">
+          <div className="flex items-center justify-center gap-3 mt-4 md:mt-10">
 
             {[0, 1, 2].map((dot) => {
 
@@ -387,7 +417,7 @@ export default function PortfolioWebsite() {
                   onClick={() => setCurrentSlide(dot)}
                   className={`rounded-full transition-all duration-700 ${
                     active
-                      ? "w-10 h-2 bg-white shadow-[0_0_20px_rgba(255,255,255,0.5)]"
+                      ? "w-10 h-2 bg-white shadow-[0_0_30px_rgba(...)] md:shadow-[0_0_120px_rgba(...)]"
                       : "w-2 h-2 bg-white/20 hover:bg-white/40"
                   }`}
                 />
@@ -428,8 +458,8 @@ export default function PortfolioWebsite() {
           ].map((item, index) => (
             <motion.div
               key={index}
-              whileHover={{ y: -10 }}
-              className="relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.02] p-8 md:p-10 backdrop-blur-3xl"
+              whileHover={!isMobile ? { y: -10 } : {}}
+              className="relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.02] p-8 md:p-10 backdrop-blur-sm md:backdrop-blur-3xl"
             >
               <div className="text-6xl font-semibold text-white/10 mb-10">
                 0{index + 1}
@@ -453,7 +483,7 @@ export default function PortfolioWebsite() {
         id="contact"
         className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 pb-24 md:pb-32"
       >
-        <div className="relative overflow-hidden rounded-[40px] border border-white/10 bg-white/[0.03] backdrop-blur-3xl p-10 md:p-20 text-center">
+        <div className="relative overflow-hidden rounded-[40px] border border-white/10 bg-white/[0.03] backdrop-blur-sm md:backdrop-blur-3xl p-10 md:p-20 text-center">
           <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-500/10" />
 
           <div className="relative z-10">
