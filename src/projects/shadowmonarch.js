@@ -3,7 +3,7 @@ const katana = {
 
   title: "Shadow Monarch",
 
-  category: "3D Modelling",
+  category: "UI/UX Design",
 
   thumbnail: "/projects/katana/thumb.jpg",
 

@@ -3,7 +3,7 @@ const katana = {
 
   title: "Ungko",
 
-  category: "3D Modelling",
+  category: "3D & Visual Design",
 
   thumbnail: "/projects/katana/thumb.jpg",
 

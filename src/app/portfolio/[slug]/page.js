@@ -27,10 +27,22 @@ export default function PortfolioDetailPage(props) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [showVideo, setShowVideo] = useState(false);
 
   const project = useMemo(() => {
     return projects.find((item) => item.id === params.slug);
   }, [params.slug]);
+
+  const getYoutubeEmbedUrl = (url) => {
+  const regExp =
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/;
+
+  const match = url.match(regExp);
+
+  return match
+    ? `https://www.youtube.com/embed/${match[1]}?autoplay=1`
+    : "";
+  };
 
   const categories = [
     "All",
@@ -314,10 +326,8 @@ export default function PortfolioDetailPage(props) {
                 {/* showcase */}
                 {project.actions?.video && (
 
-                <a
-                    href={project.actions.video.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <button
+                    onClick={() => setShowVideo(true)}
                     className="group relative overflow-hidden h-[72px] min-w-[250px] px-6 rounded-[24px] border border-red-500/15 bg-gradient-to-b from-red-500/12 to-red-500/[0.03] flex items-center gap-5 hover:border-red-400/30 hover:from-red-500/20 hover:to-red-500/[0.08] transition-all duration-500"
                 >
 
@@ -354,7 +364,7 @@ export default function PortfolioDetailPage(props) {
 
                     </div>
 
-                </a>
+                </button>
 
                 )}
 
@@ -617,6 +627,36 @@ export default function PortfolioDetailPage(props) {
         </section>
       </div>
       
+      <AnimatePresence>
+        {showVideo && (
+            <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowVideo(false)}
+            className="fixed inset-0 z-[998] bg-black/85 backdrop-blur-xl flex items-center justify-center p-6"
+            >
+            <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-6xl aspect-video rounded-[32px] overflow-hidden border border-white/10 bg-black"
+            >
+                <iframe
+                src={getYoutubeEmbedUrl(
+                    project.actions.video.url
+                )}
+                className="w-full h-full"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                />
+            </motion.div>
+            </motion.div>
+        )}
+        </AnimatePresence>
+
       {/* image modal */}
         <AnimatePresence>
 

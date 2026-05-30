@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { projects } from "@/data/projectList";
+import HeroModel from "@/components/HeroModel";
 
 export default function PortfolioWebsite() {
   const [activeTab, setActiveTab] = useState(
@@ -68,7 +69,7 @@ export default function PortfolioWebsite() {
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm md:backdrop-blur-2xl border-b border-white/10 bg-black/20">
         <div className="max-w-7xl mx-auto px-5 sm:px-6 py-5 flex items-center justify-between">
           <h1 className="text-sm sm:text-base uppercase tracking-[0.4em] font-semibold">
-            IMRA WANA
+            IMRASTUDIO
           </h1>
 
           <nav className="hidden md:flex items-center gap-10 text-sm text-white/60">
@@ -97,7 +98,7 @@ export default function PortfolioWebsite() {
               transition={{ duration: 0.6 }}
               className="inline-flex items-center gap-3 px-5 py-3 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm md:backdrop-blur-xl text-white/70 text-sm"
             >
-              ✦ 3D Animator • Creative Designer • UI/UX
+              ✦ 3D Artist • Interface Designer • Interactive Developer
             </motion.div>
 
             <motion.h1
@@ -106,10 +107,8 @@ export default function PortfolioWebsite() {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="mt-8 text-5xl sm:text-6xl lg:text-8xl font-semibold tracking-[-0.05em] leading-[0.92]"
             >
-              Building
-              <span className="text-white/30"> immersive </span>
-              visual experiences
-              <span className="text-violet-300"> for modern brands.</span>
+              Building 3D and UI Experiences
+              <span className="text-violet-300"> for Games.</span>
             </motion.h1>
 
             <motion.p
@@ -118,9 +117,8 @@ export default function PortfolioWebsite() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="mt-8 max-w-2xl text-base sm:text-lg text-white/55 leading-relaxed"
             >
-              I create premium 3D visuals, cinematic animation, futuristic
-              interfaces, and interactive digital experiences with a modern art
-              direction approach.
+              Focused on building visually engaging interfaces, 3D assets, 
+              and interactive experiences for modern digital products and game oriented projects.
             </motion.p>
 
             <motion.div
@@ -159,11 +157,9 @@ export default function PortfolioWebsite() {
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
               className="relative aspect-[4/4.5] md:aspect-[4/5] rounded-[36px] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-sm md:backdrop-blur-3xl shadow-[0_0_30px_rgba(...)] md:shadow-[0_0_120px_rgba(...)]"
             >
-              <img
-                src="/images/hero.jpg"
-                alt="hero"
-                className="absolute inset-0 w-full h-full object-cover scale-110 opacity-90"
-              />
+              <div className="absolute inset-0">
+                <HeroModel />
+              </div>
 
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
 
@@ -174,7 +170,7 @@ export default function PortfolioWebsite() {
                   </p>
 
                   <h3 className="mt-1 text-xl font-semibold">
-                    Neo Motion Reel
+                    New Projects & Highlights
                   </h3>
                 </div>
 
@@ -189,7 +185,7 @@ export default function PortfolioWebsite() {
                     Experience
                   </p>
 
-                  <h4 className="text-3xl font-semibold mt-2">5+</h4>
+                  <h4 className="text-3xl font-semibold mt-2">4 Years</h4>
                 </div>
 
                 <div className="rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm md:backdrop-blur-xl p-4">
@@ -197,7 +193,7 @@ export default function PortfolioWebsite() {
                     Projects
                   </p>
 
-                  <h4 className="text-3xl font-semibold mt-2">40+</h4>
+                  <h4 className="text-3xl font-semibold mt-2">30 Projects</h4>
                 </div>
               </div>
             </motion.div>
@@ -212,12 +208,12 @@ export default function PortfolioWebsite() {
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
           className="flex gap-20 whitespace-nowrap py-6 text-white/20 text-3xl md:text-5xl font-semibold uppercase"
         >
-          <span>3D Animation</span>
-          <span>Creative Direction</span>
-          <span>UI/UX Experience</span>
+          <span>Interface Design</span>
+          <span>3D Visual Design</span>
+          <span>Interactive Experiences</span>
           <span>Game Development</span>
-          <span>Blender Artist</span>
-          <span>Motion Design</span>
+          <span>Motion & Interaction</span>
+          <span>Immersive Design</span>
         </motion.div>
       </section>
 
@@ -436,25 +432,35 @@ export default function PortfolioWebsite() {
       >
         <div className="mb-16 max-w-3xl">
           <p className="text-sm uppercase tracking-[0.25em] text-white/40 mb-4">
-            Expertise
+          Expertise
           </p>
 
           <h2 className="text-4xl md:text-6xl font-semibold tracking-[-0.04em] leading-tight">
-            Creative services crafted for modern digital experiences.
+          Designing modern digital experiences.
           </h2>
 
           <p className="mt-6 text-white/55 text-base md:text-lg leading-relaxed max-w-2xl">
-            Combining cinematic visuals, immersive interaction, and modern
-            design systems to create impactful digital products and visual
-            storytelling.
+          Combining interface design, 3D modelling, and interactive development to create engaging and visually refined digital products.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {[
-            "Cinematic 3D Animation",
-            "Modern UI/UX Systems",
-            "Interactive Game Development",
+            {
+              title: "3D Design & Modelling",
+              description:
+                "Creating detailed 3D assets, environments, and visual elements focused on modern digital and game-oriented experiences.",
+            },
+            {
+              title: "Interface and Experience Design",
+              description:
+                "Designing modern interfaces that prioritize clarity, usability, and visually engaging user experiences.",
+            },
+            {
+              title: "Interactive Game Development",
+              description:
+                "Designing modern interfaces that prioritize clarity, usability, and visually engaging user experiences.",
+            },
           ].map((item, index) => (
             <motion.div
               key={index}
@@ -466,12 +472,11 @@ export default function PortfolioWebsite() {
               </div>
 
               <h3 className="text-3xl font-semibold leading-tight mb-5">
-                {item}
+                {item.title}
               </h3>
 
               <p className="text-white/55 leading-relaxed">
-                Premium digital craftsmanship combining aesthetics,
-                interaction, cinematic motion, and modern visual systems.
+                {item.description}
               </p>
             </motion.div>
           ))}
@@ -492,12 +497,12 @@ export default function PortfolioWebsite() {
             </p>
 
             <h2 className="text-4xl md:text-7xl font-semibold tracking-[-0.05em] leading-[1] max-w-5xl mx-auto">
-              Let’s craft something visually unforgettable.
+              Let’s build modern digital experiences together.
             </h2>
 
             <p className="mt-8 text-white/55 max-w-2xl mx-auto text-lg leading-relaxed">
-              Open for freelance projects, creative direction, UI/UX systems,
-              3D animation, branding visuals, and immersive game experiences.
+              Available for UI/UX design, 3D modelling, and interactive development projects
+              focused on modern digital and game oriented experiences.
             </p>
 
             <div className="mt-12 flex justify-center gap-4 flex-wrap">

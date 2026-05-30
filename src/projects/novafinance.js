@@ -3,7 +3,7 @@ const katana = {
 
   title: "Nova Finance",
 
-  category: "Game Dev",
+  category: "3D & Visual Design",
 
   thumbnail: "/projects/katana/thumb.jpg",
 

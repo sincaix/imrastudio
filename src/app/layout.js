@@ -6,7 +6,7 @@ const space = Space_Grotesk({
 });
 
 export const metadata = {
-  title: "Imra Wana",
+  title: "Imra Studio",
   description: "Creative Designer Portfolio",
 
   icons: {
