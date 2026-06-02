@@ -44,6 +44,21 @@ export default function PortfolioDetailPage(props) {
     : "";
   };
 
+  const handleVideoAction = () => {
+  if (
+    project?.actions?.video?.type === "external"
+  ) {
+    window.open(
+      project.actions.video.url,
+      "_blank"
+    );
+    return;
+  }
+
+  setShowVideo(true);
+};
+
+    
   const categories = [
     "All",
     ...new Set(projects.map((project) => project.category)),
@@ -327,7 +342,7 @@ export default function PortfolioDetailPage(props) {
                 {project.actions?.video && (
 
                 <button
-                    onClick={() => setShowVideo(true)}
+                    onClick={handleVideoAction}
                     className="group relative overflow-hidden h-[72px] min-w-[250px] px-6 rounded-[24px] border border-red-500/15 bg-gradient-to-b from-red-500/12 to-red-500/[0.03] flex items-center gap-5 hover:border-red-400/30 hover:from-red-500/20 hover:to-red-500/[0.08] transition-all duration-500"
                 >
 
@@ -644,14 +659,14 @@ export default function PortfolioDetailPage(props) {
                 onClick={(e) => e.stopPropagation()}
                 className="relative w-full max-w-6xl aspect-video rounded-[32px] overflow-hidden border border-white/10 bg-black"
             >
-                <iframe
-                src={getYoutubeEmbedUrl(
-                    project.actions.video.url
-                )}
+            {getYoutubeEmbedUrl(project.actions.video.url) && (
+            <iframe
+                src={getYoutubeEmbedUrl(project.actions.video.url)}
                 className="w-full h-full"
                 allow="autoplay; encrypted-media"
                 allowFullScreen
-                />
+            />
+            )}
             </motion.div>
             </motion.div>
         )}

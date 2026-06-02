@@ -9,9 +9,16 @@ thumbnail: "/projects/FrostboundSet/Thumbnail.png",
 
 actions: {
 video: {
-label: "Watch Showcase",
-url: "https://youtu.be/TiWpQOZDdng",
+  label: "Watch Showcase",
+  url: "https://youtu.be/TiWpQOZDdng",
+  type: "modal",
 },
+
+// game: {
+//     label: "Play Experience",
+//     url: "https://roblox.com/...",
+//    type: "modal",
+// },
 },
 
 description:

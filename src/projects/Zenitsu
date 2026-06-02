@@ -1,0 +1,101 @@
+const Zenitsu = {
+id: "Zenitsu-Robe",
+
+title: "Zenitsu Robe - Demon Slayer: Kimetsu no Yaiba Series",
+
+category: "3D Project",
+
+thumbnail: "/projects/Zenitsu/Thumbnail.png",
+
+actions: {
+// video: {
+//   label: "Watch Showcase",
+//   url: "https://youtu.be/TiWpQOZDdng",
+//   type: "modal",
+// },
+
+// game: {
+//     label: "Play Experience",
+//     url: "https://roblox.com/...",
+//    type: "modal",
+// },
+},
+
+description:
+"A custom Roblox clothing asset recreating an iconic anime-inspired robe for seamless in-game character customization.",
+
+headline:
+"Built to faithfully translate a recognizable anime outfit into a game-ready Roblox wearable asset.",
+
+content: [
+{
+type: "paragraph",
+text: "This project involved creating a custom robe inspired by a popular anime character and adapting it into a wearable Roblox avatar asset. The goal was to preserve the outfit's distinctive visual identity while ensuring it integrated naturally with Roblox's character system.",
+},
+
+{
+type: "paragraph",
+text: "Special attention was given to the robe's recognizable silhouette, pattern placement, and overall proportions. The design was carefully translated into a stylized 3D format that maintains the essence of the original outfit while remaining optimized for gameplay and avatar customization.",
+},
+
+{
+type: "paragraph",
+text: "My responsibilities covered the full production pipeline, including 3D modeling, texture creation, avatar fitting, and Roblox implementation. The robe was modeled in Blender, textured in IbisPaint, and prepared with proper caging techniques to ensure smooth wrapping and compatibility across Roblox character proportions.",
+},
+
+{
+type: "list",
+items: [
+"Created a custom anime-inspired robe from scratch.",
+"Recreated iconic clothing patterns and outfit details.",
+"Modeled and optimized the wearable asset in Blender.",
+"Designed custom textures and fabric details in IbisPaint.",
+"Performed caging and fitting for Roblox avatar compatibility.",
+"Configured and tested the asset in Roblox Studio.",
+"Delivered a game-ready wearable clothing asset.",
+],
+},
+],
+
+gallery: [
+"/projects/Zenitsu/1.gif",
+"/projects/Zenitsu/2.png",
+// "/projects/Zenitsu/3.png",
+// "/projects/Zenitsu/4.png",
+// "/projects/Zenitsu/5.png",
+// "/projects/Zenitsu/6.png",
+// "/projects/Zenitsu/7.png",
+// "/projects/Zenitsu/8.png",
+// "/projects/Zenitsu/9.png",
+],
+
+heroGallery: [
+"/projects/Zenitsu/Thumbnail.png",
+"/projects/Zenitsu/1.gif",
+"/projects/Zenitsu/2.png",
+// "/projects/Zenitsu/3.png",
+// "/projects/Zenitsu/4.png",
+// "/projects/Zenitsu/5.png",
+// "/projects/Zenitsu/6.png",
+// "/projects/Zenitsu/7.png",
+// "/projects/Zenitsu/8.png",
+// "/projects/Zenitsu/9.png",
+],
+
+tools: [
+  {
+    name: "Blender",
+    icon: "/tools/blender.png",
+  },
+  {
+    name: "IbisPaint",
+    icon: "/tools/ibispaint.png",
+  },
+  {
+    name: "Roblox Studio",
+    icon: "/tools/roblox.png",
+  },
+],
+};
+
+export default Zenitsu;

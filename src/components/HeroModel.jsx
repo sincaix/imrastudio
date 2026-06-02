@@ -10,7 +10,7 @@ import {
 
 function Model() {
   const { scene } = useGLTF(
-    "/projects/homepage/statue.glb"
+    "/projects/homepage/3D Preview Asset.glb"
   );
 
   return (
@@ -19,7 +19,7 @@ function Model() {
       rotationIntensity={0.3}
       floatIntensity={0.5}
     >
-      <primitive object={scene} scale={2} />
+      <primitive object={scene} scale={0.8} position={[0.8, 0, 0]} />
     </Float>
   );
 }
@@ -27,7 +27,7 @@ function Model() {
 export default function HeroModel() {
   return (
     <Canvas
-      camera={{ position: [0, 0, 5], fov: 45 }}
+      camera={{ position: [0, 0, 8], fov: 60 }}
     >
       <ambientLight intensity={1.5} />
 

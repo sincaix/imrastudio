@@ -1,15 +1,17 @@
 import Frostbound from "@/projects/FrostboundSet";
-import shadowmonarch from "@/projects/shadowmonarch";
-import novafinance from "@/projects/novafinance";
-import katana1 from "@/projects/katana1";
-import katana2 from "@/projects/katana2";
+import Piccolo from "@/projects/Piccolo";
+import Techwear from "@/projects/Techwear";
 import terminator from "@/projects/Terminator";
+import Gemi from "@/projects/Gemi";
+import Qifrey from "@/projects/Qifrey";
+import Zenitsu from "@/projects/Zenitsu";
 
 export const projects = [
   Frostbound,
   terminator,
-  shadowmonarch,
-  novafinance,
-  katana1,
-  katana2
+  Gemi,
+  Techwear,
+  Piccolo,
+  Zenitsu,
+  Qifrey,
 ];

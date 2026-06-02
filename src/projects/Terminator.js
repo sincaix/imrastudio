@@ -7,12 +7,20 @@ category: "3D Project",
 
 thumbnail: "/projects/Terminator/Thumbnail.png",
 
-actions: {
-video: {
-label: "Watch Showcase",
-url: "https://youtu.be/TiWpQOZDdng",
-},
-},
+// actions: {
+  // video: {
+  // label: "Watch Showcase",
+  // url: "https://youtu.be/TiWpQOZDdng",
+  // type: "modal",
+// },
+
+// game: {
+//   label: "Play Experience",
+//   url: "https://roblox.com/...",
+//   type: "modal",
+// },
+
+// },
 
 description:
 "A fully custom Roblox avatar set built around a futuristic cybernetic warrior aesthetic.",
@@ -52,11 +60,11 @@ items: [
 
 gallery: [
 "/projects/Terminator/1.gif",
-"/projects/Terminator/2.png",
+"/projects/Terminator/2.gif",
 "/projects/Terminator/3.png",
 "/projects/Terminator/4.png",
-// "/projects/Terminator/5.png",
-// "/projects/Terminator/6.png",
+"/projects/Terminator/5.png",
+"/projects/Terminator/6.png",
 // "/projects/Terminator/7.png",
 // "/projects/Terminator/8.png",
 // "/projects/Terminator/9.png",
@@ -65,11 +73,11 @@ gallery: [
 heroGallery: [
 "/projects/Terminator/Thumbnail.png",
 "/projects/Terminator/1.gif",
-"/projects/Terminator/2.png",
+"/projects/Terminator/2.gif",
 "/projects/Terminator/3.png",
 "/projects/Terminator/4.png",
-// "/projects/Terminator/5.png",
-// "/projects/Terminator/6.png",
+"/projects/Terminator/5.png",
+"/projects/Terminator/6.png",
 // "/projects/Terminator/7.png",
 // "/projects/Terminator/8.png",
 // "/projects/Terminator/9.png",
